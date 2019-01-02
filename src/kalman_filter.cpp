@@ -91,6 +91,11 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     y(1) -= M_PI*2;
   }
 
+  // // method2 for normlize theta
+  // double width = 2 * M_PI; 
+  // double offsetValue = y(1) + M_PI;
+  // y(1) = (offsetValue-(floor(offsetValue/width)*width)) - M_PI;
+
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();
