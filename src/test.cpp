@@ -1,6 +1,13 @@
-// test the FusionEKF.cpp, kalman_filter.cpp, tools.cpp
+// test the FusionEKF.cpp, kalman_filter.cpp, tools.cpp, use the data file in ./data and output the RMSE
 // test on Windows, use vs code, the config file is in .vscode
-// use the data file in working folder
+// in linux, should manully compile the files
+/* g++ -g ./src/test.cpp ./src/FusionEKF.cpp ./src/kalman_filter.cpp 
+                "./src/test.cpp",
+                "./src/FusionEKF.cpp",
+                "./src/kalman_filter.cpp",
+                "./src/tools.cpp",
+                "-o", "test"
+*/
 
 #include <iostream>
 #include <sstream>
@@ -40,7 +47,10 @@ int main()
   // set i to get only first 3 measurements, read data to the meas_package, read groud truth to gound_truch
   string line;
   int i = 0;
-  while (getline(in_file, line) && (i<=500))
+  int data_lines = 500; // use to contol the input lines from data file
+  cout << "Loading data from ./data/obj_pose-laser-radar-synthetic-input.txt\n"
+       << "Will loadt " << data_lines << " lines !\n";
+  while (getline(in_file, line) && (i<=data_lines)) 
   {
     MeasurementPackage meas_package;
 
@@ -129,12 +139,12 @@ int main()
       ground_truth_once.push_back(ground_truth[k]);
       VectorXd RMSE_once = tools.CalculateRMSE(estimations_once, ground_truth_once);
 
-
+      // for debugging, check the RMSE of each loop
       bool problem = false;
       // check if RMSE > 0.5
       for (int i = 0; i < 4; i ++)
       {
-        if (RMSE_once[i] > 1.0)
+        if (RMSE_once[i] > 1.0) // the project std is [0.11, 0.11, 0.52, 0.52]
         {
           problem = true;
         }
@@ -161,7 +171,7 @@ int main()
   }
 
   VectorXd RMSE = tools.CalculateRMSE(estimations, ground_truth);
-  cout << "Total RMSE = \n" << RMSE << "\n"; 
+  cout << "RMSE include all the data points: = \n" << RMSE << "\n"; 
 
   if (in_file.is_open())
   {
