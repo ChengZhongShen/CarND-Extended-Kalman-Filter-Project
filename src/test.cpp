@@ -1,18 +1,12 @@
 // test the FusionEKF.cpp, kalman_filter.cpp, tools.cpp, use the data file in ./data and output the RMSE
 // test on Windows, use vs code, the config file is in .vscode
 // in linux, should manully compile the files
-/* g++ -g ./src/test.cpp ./src/FusionEKF.cpp ./src/kalman_filter.cpp 
-                "./src/test.cpp",
-                "./src/FusionEKF.cpp",
-                "./src/kalman_filter.cpp",
-                "./src/tools.cpp",
-                "-o", "test"
-*/
+// g++ -g ./src/test.cpp ./src/FusionEKF.cpp ./src/kalman_filter.cpp ./scr/tools.cpp -o test
 
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include <Eigen/Dense>
+#include "Eigen/Dense"
 #include "measurement_package.h"
 #include "FusionEKF.h"
 
