@@ -85,7 +85,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       //         and initialize state.
       float ro = measurement_pack.raw_measurements_[0];
       float theta = measurement_pack.raw_measurements_[1];
-      float ro_dot = measurement_pack.raw_measurements_[2];
+      // float ro_dot = measurement_pack.raw_measurements_[2];
       // note the cartesain is 90 degreen turn as normal
       float px = ro * cos(theta);
       float py = ro * sin(theta);
